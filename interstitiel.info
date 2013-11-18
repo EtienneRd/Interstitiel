@@ -3,3 +3,6 @@ description = "Show interstitiels"
 package = G-nova
 core = 7.x
 dependencies[] = bundle_copy
+
+scripts[] = js/interstitiel.js
+scripts[] = js/jquery.cookie.js

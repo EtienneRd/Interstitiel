@@ -12,11 +12,6 @@ function interstitiel_menu(){
   return $items;
 }
 
-function interstitiel_init() {
-	drupal_add_js(drupal_get_path('module', 'interstitiel') . '/js/interstitiel.js', 'module');
-	drupal_add_js(drupal_get_path('module', 'interstitiel') . '/js/jquery.cookie.js', 'module');
-}
-
 function interstitiel_nodeapi(&$node, $op, $teaser = NULL, $page = NULL){
   if($node->type == 'interstitiel'){
     switch($op){
