@@ -55,6 +55,7 @@ function interstitiel_block($op = 'list', $delta = 0, $edit = array()) {
 // SAVE CONFIGURATION
   }
   else if ($op == 'view') {
+    $block = array();
     switch ($delta) {
       case 'interstitiel':
         // Your module will need to define this function to render the block.
@@ -66,14 +67,6 @@ function interstitiel_block($op = 'list', $delta = 0, $edit = array()) {
     }
     return $block;
   }
-}
-
-/**
- * Implementation of hook_theme_registry_alter().
- */
-function interstitiel_theme_registry_alter(&$variables) {
-  $firstElement = array_shift($variables['block']['theme paths']);
-  array_unshift($variables['block']['theme paths'], $firstElement, drupal_get_path('module', 'interstitiel') . '/templates');
 }
 
 function interstitiel_display_block_interstitiel(){
@@ -162,7 +155,7 @@ function interstitiel_ajax_displaybypage($encodePath){
     $where_domain = " AND (d.gid = %d AND d.realm = 'domain_id')
     ";
   }
-  $query = "SELECT n.nid AS nid, cti.field_displayonpages_value, cti.field_notdisplayonpages_value, cti.field_persistance_value
+  $query = "SELECT n.nid AS nid, cti.field_displayonpages_value, cti.field_notdisplayonpages_value, cti.field_persistence_value
  FROM {node} n
  LEFT JOIN {content_type_interstitiel} cti ON n.vid = cti.vid".$query_domain."
  WHERE n.status <> 0
@@ -206,7 +199,7 @@ function interstitiel_ajax_displaybypage($encodePath){
         // Affichage en teaser
         $output = node_view($node, TRUE); // On retourne le premier interstitiel correspondant trouvé
         
-        $display = $interstitiel->field_persistance_value;
+        $display = $interstitiel->field_persistence_value;
         
         break;
       }
@@ -221,17 +214,17 @@ function interstitiel_ajax_displaybyvisitor($nid){
   $ip = $_SERVER['REMOTE_ADDR'];
 
   // CHECK how many times we can display interstitial
-  $sql = "SELECT cti.field_persistance_value FROM {content_type_interstitiel} cti WHERE cti.nid=%d";
+  $sql = "SELECT cti.field_persistence_value FROM {content_type_interstitiel} cti WHERE cti.nid=%d";
   $query = db_query($sql, $nid);
   if($result = db_fetch_object($query)){
-    $persistance = $result->field_persistance_value;
+    $persistence = $result->field_persistence_value;
 
     if(!empty($ip)){
       $sql = "SELECT il.nid FROM {interstitiel_log} il WHERE il.nid=%d AND il.ip='%s'";
       $query = db_query($sql, $nid, $ip);
       if($result = db_fetch_object($query)){
         $sql = "UPDATE {interstitiel_log} SET datetime='%s' WHERE ip='%s' AND nid=%d";
-        if($persistance == 'first'){
+        if($persistence == 'first'){
           $ad = FALSE;
         }
       }else{
@@ -243,7 +236,7 @@ function interstitiel_ajax_displaybyvisitor($nid){
       $ad = TRUE;
     }
     if(isset($_SESSION['interstitiel'][$nid])){
-      if($persistance == 'first'){
+      if($persistence == 'first'){
         $ad = FALSE;
       }else{
         $ad = TRUE;
