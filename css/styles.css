@@ -1,0 +1,55 @@
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  z-index: 5000;
+  height: 100%;
+}
+
+#block_interstitiel {
+  z-index: 5001;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  height: auto;
+  margin: -250px 0 0 -400px;
+  background: #FFF;
+  border-radius: 3px;
+  box-shadow:0 0 7px rgba(0,0,0,0.5);
+  display: none;
+}
+
+#interstitiel_fenetre {
+  padding: 1em;
+}
+
+.close {
+  text-indent: -9999px;
+  position: absolute;
+  top: -1em;
+  right: -1em;
+  box-shadow:0 0 4px rgba(0,0,0,0.5);
+  overflow:hidden;
+  background: #FFF;
+  border-radius:90px;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  color:#666;
+}
+
+.close:hover {
+  background: #333;
+  color:#FFF;
+}
+
+.close:before {
+  content:"X";
+  text-indent: 0;
+  display: block;
+  line-height:2em;
+  text-align: center;
+}
