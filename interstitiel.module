@@ -173,15 +173,15 @@ function interstitiel_ajax_displaybypage() {
       $page_match = drupal_match_path($path, (!empty($node->field_interstl_displayonpages[$lang][0]['value']) ?
         $node->field_interstl_displayonpages[$lang][0]['value'] : ''));
 
-      $page_nodisplay_match = drupal_match_path($path, (!empty($node->field_interstl_nodisplayonpages[$lang][0]['value']) ?
-        $node->field_interstl_nodisplayonpages[$lang][0]['value'] : ''));
+      $page_nodisplay_match = drupal_match_path($path, (!empty($node->field_interstl_notdisplayonpages[$lang][0]['value']) ?
+        $node->field_interstl_notdisplayonpages[$lang][0]['value'] : ''));
 
       if ($path != $current_url && !$page_match) {
         $page_match = drupal_match_path($current_url, (!empty($node->field_interstl_displayonpages[$lang][0]['value']) ?
           $node->field_interstl_displayonpages[$lang][0]['value'] : ''));
 
-        $page_nodisplay_match = drupal_match_path($current_url, (!empty($node->field_interstl_nodisplayonpages[$lang][0]['value']) ?
-          $node->field_interstl_nodisplayonpages[$lang][0]['value'] : ''));
+        $page_nodisplay_match = drupal_match_path($current_url, (!empty($node->field_interstl_notdisplayonpages[$lang][0]['value']) ?
+          $node->field_interstl_notdisplayonpages[$lang][0]['value'] : ''));
       }
 
       if (($page_match || empty($node->field_interstl_displayonpages[$lang][0]['value'])) && !$page_nodisplay_match) {
